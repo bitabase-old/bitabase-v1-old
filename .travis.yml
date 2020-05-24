@@ -6,9 +6,9 @@ install: true
 script:
   - npm install
   - npm run build
-  - mv index-linux bitabase-linux-amd64
-  - mv index-macos bitabase-darwin-amd64
-  - mv index-win.exe bitabase-windows.exe
+  - mv index-linux bitabase-linux-$TRAVIS_TAG-amd64
+  - mv index-macos bitabase-darwin-$TRAVIS_TAG-amd64
+  - mv index-win.exe bitabase-windows-$TRAVIS_TAG.exe
 deploy:
   provider: releases
   skip_cleanup: true
