@@ -14,9 +14,9 @@ deploy:
   skip_cleanup: true
   api_key: $GITHUB_TOKEN
   file:
-    - index-linux
-    - index-macos
-    - index-win.exe
+    - bitabase-linux-amd64
+    - bitabase-darwin-amd64
+    - bitabase-windows.exe
   on:
     repo: bitabase/bitabase
     tags: true
