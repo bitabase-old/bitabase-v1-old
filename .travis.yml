@@ -14,9 +14,9 @@ deploy:
   skip_cleanup: true
   api_key: $GITHUB_TOKEN
   file:
-    - bitabase-linux-amd64
-    - bitabase-darwin-amd64
-    - bitabase-windows.exe
+    - bitabase-linux-$TRAVIS_TAG-amd64
+    - bitabase-darwin-$TRAVIS_TAG-amd64
+    - bitabase-windows-$TRAVIS_TAG.exe
   on:
     repo: bitabase/bitabase
     tags: true
