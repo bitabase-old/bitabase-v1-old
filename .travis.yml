@@ -1,0 +1,22 @@
+language: node_js
+sudo: false
+node_js:
+  - 12
+install: true
+script:
+  - npm install
+  - npm run build
+  - mv index-linux bitabase-linux-amd64
+  - mv index-macos bitabase-darwin-amd64
+  - mv index-win.exe bitabase-windows.exe
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key: $GITHUB_TOKEN
+  file:
+    - index-linux
+    - index-macos
+    - index-win.exe
+  on:
+    repo: bitabase/bitabase
+    tags: true
