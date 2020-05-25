@@ -16,7 +16,7 @@ script:
   - ./node_modules/.bin/node-pre-gyp install --directory=./node_modules/sqlite3 --target_platform=darwin --target_arch=x64 --target=12.16.3
   - npm run build
   - mv dist/index-linux bitabase-linux-$TRAVIS_TAG-amd64
-  - mv dist/index-macos bitabase-darwin-$TRAVIS_TAG-amd64
+  - mv dist/index-darwin bitabase-darwin-$TRAVIS_TAG-amd64
   - mv dist/index-win.exe bitabase-windows-$TRAVIS_TAG-amd64.exe
 deploy:
   provider: releases
