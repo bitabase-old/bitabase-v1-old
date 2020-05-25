@@ -1,14 +1,22 @@
 language: node_js
 sudo: false
 node_js:
-  - 12
+  - 12.16.3
 install: true
 script:
+  - git clone https://github.com/geekuillaume/pkg.git
+  - cd pkg
+  - npm i
+  - npm link
+  - ../
   - npm install
   - npm run build
+  # - ./node_modules/.bin/node-pre-gyp install --directory=./node_modules/sqlite3 --target_platform=win32 --target_arch=x64 --target=12.16.3
+  - ./node_modules/.bin/node-pre-gyp install --directory=./node_modules/sqlite3 --target_platform=linux --target_arch=x64 --target=12.16.3
+  - ./node_modules/.bin/node-pre-gyp install --directory=./node_modules/sqlite3 --target_platform=darwin --target_arch=x64 --target=12.16.3
   - mv index-linux bitabase-linux-$TRAVIS_TAG-amd64
   - mv index-macos bitabase-darwin-$TRAVIS_TAG-amd64
-  - mv index-win.exe bitabase-windows-$TRAVIS_TAG.exe
+  # - mv index-win.exe bitabase-windows-$TRAVIS_TAG-amd64.exe
 deploy:
   provider: releases
   skip_cleanup: true
@@ -16,7 +24,7 @@ deploy:
   file:
     - bitabase-linux-$TRAVIS_TAG-amd64
     - bitabase-darwin-$TRAVIS_TAG-amd64
-    - bitabase-windows-$TRAVIS_TAG.exe
+    # - bitabase-windows-$TRAVIS_TAG-amd64.exe
   on:
     repo: bitabase/bitabase
     tags: true

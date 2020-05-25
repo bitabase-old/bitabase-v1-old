@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/pkg index.js",
+    "build": "pkg index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,8 +16,10 @@
     "bitabase-manager": "^2.0.0",
     "bitabase-server": "^1.12.0",
     "ip": "^1.1.5",
-    "pkg": "^4.4.8",
     "rqlite-fp": "^2.1.0",
     "tape": "^5.0.0"
+  },
+  "devDependencies": {
+    "node-pre-gyp": "^0.14.0"
   }
 }

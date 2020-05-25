@@ -1,3 +1,14 @@
-const {start} = require('./start')
+const fs = require('fs')
+const path = require('path')
 
+const binPaths = [
+  path.join(__dirname, './node_modules/sqlite3/lib/binding/node-v72-darwin-x64/node_sqlite3.node'),
+  path.join(__dirname, './node_modules/sqlite3/lib/binding/node-v72-linux-x64/node_sqlite3.node'),
+  // path.join(__dirname, './node_modules/sqlite3/lib/binding/node-v72-win32-x64/node_sqlite3.node')
+]
+binPaths.forEach(binPath => {
+  fs.createReadStream(binPath)
+})
+
+const {start} = require('./start')
 start()
