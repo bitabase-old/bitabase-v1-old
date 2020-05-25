@@ -15,3 +15,6 @@ This is the main repository for Bitabase, a scalable, sharded database engine ba
 
 ## Getting Started
 Download the latest version from the github releases and run on your server
+
+## License
+This project is licensed under the terms of the AGPL-3.0 license.
