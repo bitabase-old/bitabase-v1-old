@@ -33,6 +33,7 @@ function download (options, callback) {
     downloadUrl = 'https://ci.appveyor.com/api/projects/otoolep/rqlite/artifacts/rqlite-latest-win64.zip?branch=master'
   } else {
     const release = releases.get(rest => {
+      console.log(rest)
       return rest.body.assets.find(asset => asset.name.includes(options.assetLookup));
     });
 
