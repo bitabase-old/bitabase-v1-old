@@ -2,7 +2,10 @@
 
 For help and support chat on:
 
-https://riot.im/app/#/room/#bitabase:matrix.org
+- [Fully Managed](https://bitabase.com)
+- [Support and Chat](https://riot.im/app/#/room/#bitabase:matrix.org)
+- [Documentation](https://docs.bitabase.com)
+- [Releases](https://github.com/bitabase/bitabase/releases)
 
 # Bitabase Database
 This is the main repository for Bitabase, a scalable, sharded database engine based on sqlite.
