@@ -6,12 +6,13 @@ const createBitabaseManager = require('bitabase-manager/server')
 const createBitabaseServer = require('bitabase-server/server')
 const createBitabaseGateway = require('bitabase-gateway/server')
 
-function start () {
+function start (options) {
   const stopServer = righto(rqlite.start, {
     httpAddr: 'localhost:4001',
     raftAddr: 'localhost:4002',
     storage: '/tmp/rqlite-bitabase',
-    silent: false
+    silent: false,
+    ...options
   })
 
   const connection = righto(rqlite.connect, 'http://localhost:4001', righto.after(stopServer))

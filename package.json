@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "pkg index.js",
+    "build": "pkg --out-path=dist -t node12-linux-x64 index-linux.js & pkg --out-path=dist -t node12-macos-x64 index-darwin.js & pkg --out-path=dist -t node12-win-x64 index-win.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,8 +15,9 @@
     "bitabase-gateway": "^1.3.0",
     "bitabase-manager": "^2.0.0",
     "bitabase-server": "^1.12.0",
+    "calladownload-extract": "^1.2.0",
     "ip": "^1.1.5",
-    "rqlite-fp": "^2.1.0",
+    "rqlite-fp": "^2.2.0",
     "tape": "^5.0.0"
   },
   "devDependencies": {
