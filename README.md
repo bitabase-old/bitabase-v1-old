@@ -1,6 +1,6 @@
 <img src="https://docs.bitabase.com/img/logo.png" alt="Bitabase Logo" height="50px" />
 
-For help and support chat on:
+# Useful Links
 
 - [Fully Managed](https://bitabase.com)
 - [Support and Chat](https://riot.im/app/#/room/#bitabase:matrix.org)
