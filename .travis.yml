@@ -8,7 +8,7 @@ script:
   - cd pkg
   - npm i
   - npm link
-  - ../
+  - cd ../
   - npm install
   - npm run build
   # - ./node_modules/.bin/node-pre-gyp install --directory=./node_modules/sqlite3 --target_platform=win32 --target_arch=x64 --target=12.16.3
