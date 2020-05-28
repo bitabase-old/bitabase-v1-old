@@ -1,22 +1,13 @@
-const axios = require('axios');
-const test = require('tape');
+require('./database/create-test');
+require('./database/list-test');
 
-const url = 'http://localhost:8081'
+require('./database/collections/create-test');
+require('./database/collections/list-test');
+require('./database/collections/update-test');
 
-test('user: create a new user with validation errors', async t => {
-  t.plan(2);
+require('./database/collections/logs/list-test');
 
-  const response = await axios(`${url}/v1/users`, {
-    method: 'post',
-    validateStatus: () => true
-  });
+require('./session/create-test');
+require('./session/read-test');
 
-  t.equal(response.status, 422);
-
-  t.deepEqual(response.data, {
-    errors: {
-      email: 'email is a required field',
-      password: 'password is a required field'
-    }
-  });
-});
+require('./user/index');

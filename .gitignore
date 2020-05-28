@@ -1,0 +1,7 @@
+node_modules
+dist/rqlite-darwin
+dist/rqlite-linux
+dist/rqlite-win
+dist/rqlite-darwin.tar.gz
+dist/rqlite-linux.tar.gz
+dist/rqlite-win.zip

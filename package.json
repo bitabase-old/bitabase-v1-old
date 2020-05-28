@@ -16,11 +16,14 @@
     "bitabase-manager": "^2.0.0",
     "bitabase-server": "^1.12.0",
     "calladownload-extract": "^1.2.0",
+    "chalk": "^4.0.0",
     "ip": "^1.1.5",
+    "minimist": "^1.2.5",
     "rqlite-fp": "^2.2.0",
     "tape": "^5.0.0"
   },
   "devDependencies": {
+    "final-stream": "^1.1.0",
     "node-pre-gyp": "^0.14.0"
   }
 }

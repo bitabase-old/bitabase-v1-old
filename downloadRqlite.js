@@ -1,11 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const { spawn } = require('child_process');
 
 const righto = require('righto');
-const chalk = require('chalk');
-const unzipper = require('unzipper');
-const tar = require('tar');
 const { http, https } = require('follow-redirects');
 const callarest = require('callarest/json');
 const { extractTarballDownload, extractZipDownload } = require('calladownload-extract');
@@ -14,9 +10,9 @@ const url = 'https://api.github.com/repos/rqlite/rqlite/releases/latest';
 
 function extract (downloadUrl, downloadDestination, extractPath, options, callback) {
   if (downloadDestination.endsWith('.zip')) {
-    extractZipDownload(downloadUrl, downloadDestination, extractPath, options, callback)
+    extractZipDownload(downloadUrl, downloadDestination, extractPath, options, callback);
   } else {
-    extractTarballDownload(downloadUrl, downloadDestination, extractPath, options, callback)
+    extractTarballDownload(downloadUrl, downloadDestination, extractPath, options, callback);
   }
 }
 
@@ -25,13 +21,13 @@ function download (options, callback) {
     url,
     headers: {
       'User-Agent': 'nodejs',
-      'Authorization': 'token ' + process.env.GITHUB_TOKEN
+      Authorization: process.env.GITHUB_TOKEN ? 'token ' + process.env.GITHUB_TOKEN : null
     }
   });
 
-  let downloadUrl
+  let downloadUrl;
   if (options.assetLookup === 'win') {
-    downloadUrl = 'https://ci.appveyor.com/api/projects/otoolep/rqlite/artifacts/rqlite-latest-win64.zip?branch=master'
+    downloadUrl = 'https://ci.appveyor.com/api/projects/otoolep/rqlite/artifacts/rqlite-latest-win64.zip?branch=master';
   } else {
     const release = releases.get(rest => {
       return rest.body.assets.find(asset => asset.name.includes(options.assetLookup));
@@ -58,17 +54,6 @@ function download (options, callback) {
   extractionResult(callback);
 }
 
-function getFilesInTarball (file, callback) {
-  const downloadDestination = file;
-  const entries = [];
-  tar.t({ file: downloadDestination, onentry: i => entries.push(i.path) }, function (error) {
-    if (error) {
-      return callback(error);
-    }
-    callback(null, entries);
-  });
-}
-
 function getBinPath (options, callback) {
   fs.readdir(options.extractPath, function (error, files) {
     if (error) {
@@ -79,21 +64,19 @@ function getBinPath (options, callback) {
       return callback(new Error('rqlited was not found in tarball'));
     }
     callback(null, path.join(options.extractPath, rqliteBin[0]));
-  })
+  });
 }
 
 function main (options, callback) {
-  console.log('downloading', options)
+  console.log('downloading', options);
 
   options = options || {};
-  options.downloadFilePath = options.downloadFilePath;
-  options.extractPath = options.extractPath;
 
   download(options, function (error, result) {
     if (error) {
       return callback(error);
     }
-    getBinPath(options, callback)
+    getBinPath(options, callback);
   });
 }
 
@@ -101,16 +84,16 @@ main({
   assetLookup: 'win',
   downloadFilePath: './dist/rqlite-win.zip',
   extractPath: './dist/rqlite-win'
-}, console.log)
+}, console.log);
 
 main({
   assetLookup: 'darwin',
   downloadFilePath: './dist/rqlite-darwin.tar.gz',
   extractPath: './dist/rqlite-darwin'
-}, console.log)
+}, console.log);
 
 main({
   assetLookup: 'linux',
   downloadFilePath: './dist/rqlite-linux.tar.gz',
   extractPath: './dist/rqlite-linux'
-}, console.log)
+}, console.log);
