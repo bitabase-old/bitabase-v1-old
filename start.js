@@ -8,9 +8,10 @@ const createBitabaseGateway = require('bitabase-gateway/server');
 
 function start (options) {
   const stopServer = righto(rqlite.start, {
-    httpAddr: 'localhost:4001',
-    raftAddr: 'localhost:4002',
-    storage: '/tmp/rqlite-bitabase',
+    httpAddr: '127.0.0.1:4001',
+    raftAddr: options['rqlite-bind'] || '0.0.0.0:4002',
+    join: options['rqlite-join'],
+    storage: options['rqlite-storage'] || '/tmp/rqlite-bitabase',
     silent: false,
     ...options
   });
@@ -31,13 +32,18 @@ function start (options) {
     WHERE NOT EXISTS(SELECT 1 FROM servers WHERE host = ?);
   `, [localIp, localIp], righto.after(createdTable));
 
-  const bitabaseServer = createBitabaseServer();
+  const bitabaseServer = createBitabaseServer({
+    bind: options['server-bind'] || '0.0.0.0:8080'
+  });
   const bitabaseGateway = createBitabaseGateway({
-    rqliteAddress: '127.0.0.1:8001'
+    rqliteAddress: '0.0.0.0:8001',
+    bind: options['gateway-bind'] || '0.0.0.0:8082',
+    managerUrl: 'http://' + options['manager-bind']
   });
 
   const startedBitabaseManager = righto(createBitabaseManager, {
-    rqliteAddress: '127.0.0.1:8001'
+    rqliteAddress: '0.0.0.0:8001',
+    bind: options['manager-bind'] || '0.0.0.0:8081'
   }, righto.after(insertedServer));
   const startedBitabaseServer = righto(bitabaseServer.start, righto.after(insertedServer));
   const startedBitabaseGateway = righto(bitabaseGateway.start, righto.after(insertedServer));

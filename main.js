@@ -1,3 +1,8 @@
+if (process.env.NODE_ENV === 'development') {
+  require('trace')
+  require('clarify')
+}
+
 const chalk = require('chalk');
 const minimist = require('minimist');
 
@@ -8,22 +13,21 @@ function main (rqlitePath) {
   if (args.help) {
     console.log(`
 ${chalk.green(chalk.bold('📦 Bitabase'))} ${chalk.green(`- v${packageJson.version}`)}
-The scalable, shared database engine server.
+The scalable, sharded database engine.
 https://docs.bitabase.com
 
 The following arguments are available when starting Bitabase
 
 Arguments:
-  --rqlite-addr                  Connect to an existing rqlite node
+  --rqlite-bind=host:port        Host and port to bind the rqlite node to (default: 0.0.0.0:4002)
+  --rqlite-join=host:port        Join an rqlite cluster (default: none)
+  --rqlite-storage=/path         Where to store rqlite transaction log (default: /tmp/rqlite-bitabase)
 
-  --rqlite-bind=host:port        Start a new rqlite node
-  --rqlite-storage=/path         Where to store rqlite transaction log
-  --rqlite-silent                Suppress rqlite logging to stdout
+  --manager-bind=host:port       Host and port to bind the manager to (default: 0.0.0.0:8081)
+  --gateway-bind=host:port       Host and port to bind the gateway to (default: 0.0.0.0:8082)
+  --server-bind=host:port        Host and port to bind the server to (default: 0.0.0.0:8000)
 
-  --manager-bind=host:port       Host and port to bind the manager to
-  --gateway-bind=host:port       Host and port to bind the gateway to
-  --server-bind=host:port        Host and port to bind the server to
-`.trim());
+`.trim() + '\n');
     return;
   }
 
