@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  bitabase-1:
+    image: bitabase:local
+    command: node index-docker.js --rqlite-http-bind=bitabase-1:4001 --rqlite-raft-bind=bitabase-1:4002
+
+  bitabase-2:
+    image: bitabase:local
+    command: node index-docker.js --rqlite-http-bind=bitabase-2:4001 --rqlite-raft-bind=bitabase-2:4002 --rqlite-join=http://bitabase-1:4001

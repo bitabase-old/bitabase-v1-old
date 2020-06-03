@@ -80,17 +80,19 @@ function main (options, callback) {
   });
 }
 
-main({
-  assetLookup: 'win',
-  downloadFilePath: './dist/rqlite-win.zip',
-  extractPath: './dist/rqlite-win'
-}, console.log);
+if (process.argv[2] !== '--linux-only') {
+  main({
+    assetLookup: 'win',
+    downloadFilePath: './dist/rqlite-win.zip',
+    extractPath: './dist/rqlite-win'
+  }, console.log);
 
-main({
-  assetLookup: 'darwin',
-  downloadFilePath: './dist/rqlite-darwin.tar.gz',
-  extractPath: './dist/rqlite-darwin'
-}, console.log);
+  main({
+    assetLookup: 'darwin',
+    downloadFilePath: './dist/rqlite-darwin.tar.gz',
+    extractPath: './dist/rqlite-darwin'
+  }, console.log);
+}
 
 main({
   assetLookup: 'linux',

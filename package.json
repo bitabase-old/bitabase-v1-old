@@ -12,14 +12,14 @@
   "license": "AGPL-3.0",
   "dependencies": {
     "axios": "^0.19.2",
-    "bitabase-gateway": "^1.4.0",
+    "bitabase-gateway": "^1.4.3",
     "bitabase-manager": "^2.1.0",
-    "bitabase-server": "^1.13.0",
+    "bitabase-server": "^1.14.0",
     "calladownload-extract": "^1.2.0",
     "chalk": "^4.0.0",
     "ip": "^1.1.5",
     "minimist": "^1.2.5",
-    "rqlite-fp": "^2.7.0",
+    "rqlite-fp": "^2.7.2",
     "sqlite3": "^4.2.0",
     "tape": "^5.0.1"
   },

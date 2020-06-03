@@ -1,6 +1,6 @@
 if (process.env.NODE_ENV === 'development') {
-  require('trace')
-  require('clarify')
+  require('trace');
+  require('clarify');
 }
 
 const chalk = require('chalk');
@@ -19,8 +19,9 @@ https://docs.bitabase.com
 The following arguments are available when starting Bitabase
 
 Arguments:
-  --rqlite-bind=host:port        Host and port to bind the rqlite node to (default: 0.0.0.0:4002)
-  --rqlite-join=host:port        Join an rqlite cluster (default: none)
+  --rqlite-http-bind=host:port   Host and port to bind the rqlite node to (default: 0.0.0.0:4001)
+  --rqlite-raft-bind=host:port   Host and port to bind the rqlite node to (default: 0.0.0.0:4002)
+  --rqlite-join=host:port        Join an rqlite cluster (default: none, eg: http://0.0.0.0:4001)
   --rqlite-storage=/path         Where to store rqlite transaction log (default: /tmp/rqlite-bitabase)
 
   --manager-bind=host:port       Host and port to bind the manager to (default: 0.0.0.0:8081)

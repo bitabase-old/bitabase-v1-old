@@ -6,19 +6,29 @@ const createBitabaseManager = require('bitabase-manager/server');
 const createBitabaseServer = require('bitabase-server/server');
 const createBitabaseGateway = require('bitabase-gateway/server');
 
+function keepTryingToConnect (address, callback) {
+  rqlite.connect(address, function (error, result) {
+    if (error) {
+      console.log(error);
+      console.log(`could not connect to ${address}. trying again in 2 seconds...`);
+      setTimeout(() => keepTryingToConnect(address, callback), 2000);
+      return;
+    }
+    callback(null, result);
+  });
+}
+
 function start (options) {
   const stopServer = righto(rqlite.start, {
-    httpAddr: '127.0.0.1:4001',
-    raftAddr: options['rqlite-bind'] || '0.0.0.0:4002',
+    httpAddr: options['rqlite-http-bind'] || '0.0.0.0:4001',
+    raftAddr: options['rqlite-raft-bind'] || '0.0.0.0:4002',
     join: options['rqlite-join'],
     storage: options['rqlite-storage'] || '/tmp/rqlite-bitabase',
     silent: false,
     ...options
   });
 
-  const connection = options['rqlite-addr']
-    ? righto(rqlite.connect, 'http://localhost:4001')
-    : righto(rqlite.connect, 'http://localhost:4001', righto.after(stopServer));
+  const connection = righto(keepTryingToConnect, 'http://' + options['rqlite-http-bind'], righto.after(stopServer));
 
   const createdTable = righto(rqlite.execute, connection, `
     CREATE TABLE IF NOT EXISTS servers (id INTEGER PRIMARY KEY AUTOINCREMENT, host TEXT)
@@ -38,7 +48,7 @@ function start (options) {
   const bitabaseGateway = createBitabaseGateway({
     rqliteAddress: '0.0.0.0:8001',
     bind: options['gateway-bind'] || '0.0.0.0:8082',
-    managerUrl: 'http://' + options['manager-bind']
+    managerUrl: 'http://' + (options['manager-bind'] || '0.0.0.0:8081')
   });
 
   const startedBitabaseManager = righto(createBitabaseManager, {
