@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  rqlite-1:
+    image: rqlite/rqlite
+    command: -http-addr rqlite-1:4001 -raft-addr rqlite-1:4002 /tmp/rq1
+    ports:
+      - 4001:4001
+
+  # rqlite-2:
+  #   image: rqlite/rqlite
+  #   command: -http-addr rqlite-2:4001 -raft-addr rqlite-2:4002 -join http://rqlite-1:4001 /tmp/rq1
+
+  server:
+    image: node:12
+    working_dir: /app
+    command: bash -c "npm i && ./node_modules/.bin/nodemon index.js start --bind-host $$HOSTNAME --rqlite-addr http://rqlite-1:4001 --database-path /tmp/bitabase-server"
+    restart: always
+    environment:
+      NODE_ENV: development
+    volumes:
+      - '../bitabase-server:/app'
+
+  manager:
+    image: node:12
+    working_dir: /app
+    command: bash -c "npm i && ./node_modules/.bin/nodemon index.js start --bind-host $$HOSTNAME --rqlite-addr http://rqlite-1:4001 --secret hush123"
+    restart: always
+    environment:
+      NODE_ENV: development
+    volumes:
+      - '../bitabase-manager:/app'
+
+  gateway:
+    image: node:12
+    working_dir: /app
+    command: bash -c "npm i && ./node_modules/.bin/nodemon index.js start --bind-host $$HOSTNAME --rqlite-addr http://rqlite-1:4001 --secret hush123"
+    restart: always
+    # deploy: 
+    #   replicas: 3
+    environment:
+      NODE_ENV: development
+    volumes:
+      - '../bitabase-gateway:/app'

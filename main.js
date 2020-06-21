@@ -1,6 +1,5 @@
 if (process.env.NODE_ENV === 'development') {
-  require('trace');
-  require('clarify');
+  require('async-bugs');
 }
 
 const chalk = require('chalk');
@@ -25,10 +24,15 @@ Commands:
     --rqlite-join=host:port        Join an rqlite cluster (default: none, eg: http://0.0.0.0:4001)
     --rqlite-storage=/path         Where to store rqlite transaction log (default: /tmp/rqlite-bitabase)
 
-    --manager-bind=host:port       Host and port to bind the manager to (default: 0.0.0.0:8081)
-    --gateway-bind=host:port       Host and port to bind the gateway to (default: 0.0.0.0:8082)
-    --server-bind=host:port        Host and port to bind the server to (default: 0.0.0.0:8000)
+    --secret                       The secret for internal communication
 
+    --manager-bind-host            Host to bind the manager node on (default: 0.0.0.0)
+    --manager-bind-port            Port to bind the manager on (default: 8001)
+    --gateway-bind-host            Host to bind the gateway node on (default: 0.0.0.0)
+    --gateway-bind-port            Port to bind the gateway on (default: 8002)
+    --server-bind-host             Host to bind the data server node on (default: 0.0.0.0)
+    --server-bind-port             Port to bind the data server on (default: 8000)
+    --server-storage=/path         Where to store server sqlite databases (default: /tmp/server-bitabase)
   `.trim() + '\n');
 }
 
@@ -37,7 +41,6 @@ function main (rqlitePath) {
     showHelp();
     console.log(chalk.red('No command specified'));
     process.exit(1);
-    return;
   }
 
   if (args._[2] === 'start') {
