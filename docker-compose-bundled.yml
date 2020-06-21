@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  bitabase-1:
+    image: bitabase:local
+    command:
+      - 'node -r async-bugs index-darwin.js'
+      - '--rqlite-storage=/tmp/rq1'
+      - '--rqlite-http-bind=0.0.0.0:4001'
+      - '--rqlite-raft-bind=0.0.0.0:4002'
+      - '--manager-bind=0.0.0.0:8081'
+      - '--gateway-bind=0.0.0.0:8082'
+      - '--server-bind=0.0.0.0:8080'
+      - '--server-storage=/tmp/sq1'
+      - 'start'
+
+
+  bitabase-2:
+    image: bitabase:local
+    command:
+      - 'node -r async-bugs index-darwin.js'
+      - '--rqlite-storage=/tmp/rq2'
+      - '--rqlite-http-bind=0.0.0.0:4101'
+      - '--rqlite-raft-bind=0.0.0.0:4102'
+      - '--manager-bind=0.0.0.0:8181'
+      - '--gateway-bind=0.0.0.0:8182'
+      - '--server-bind=0.0.0.0:8180'
+      - '--rqlite-join=http://0.0.0.0:4001'
+      - '--server-storage=/tmp/sq2'
+      - 'start'
