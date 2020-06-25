@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  rqlite-1:
+    image: rqlite/rqlite
+    command: -http-addr 0.0.0.0:4001 -raft-addr 0.0.0.0:4002 /tmp/rq1
+    ports:
+      - 4001:4001
+
+  # rqlite-2:
+  #   image: rqlite/rqlite
+  #   command: -http-addr rqlite-2:4001 -raft-addr rqlite-2:4002 -join http://rqlite-1:4001 /tmp/rq1
+
+  server:
+    image: bitabase/bitabase-server
+    command: bash -c "node index start --advertise-host $$HOSTNAME --rqlite-addr http://rqlite-1:4001 --database-path /tmp/bitabase-server"
+    ports:
+      - "8000:8000"
+    deploy: 
+      replicas: 1
+
+  manager:
+    image: bitabase/bitabase-manager
+    command: bash -c "node index start --advertise-host $$HOSTNAME --rqlite-addr http://rqlite-1:4001 --secret hush123 --password-hash-iterations 1"
+    ports:
+      - "8001:8001"
+    deploy: 
+      replicas: 1
+
+  gateway:
+    image: bitabase/bitabase-gateway
+    command: bash -c "node index start --advertise-host $$HOSTNAME --rqlite-addr http://rqlite-1:4001 --secret hush123"
+    ports:
+      - "8002:8002"
+    deploy: 
+      replicas: 1
