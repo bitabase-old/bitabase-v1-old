@@ -16,6 +16,8 @@ services:
     working_dir: /app
     command: bash -c "npm i && ./node_modules/.bin/nodemon index.js start --bind-host $$HOSTNAME --rqlite-addr http://rqlite-1:4001 --database-path /tmp/bitabase-server"
     restart: always
+    ports:
+      - "8000:8000"
     environment:
       NODE_ENV: development
     volumes:
@@ -24,8 +26,10 @@ services:
   manager:
     image: node:12
     working_dir: /app
-    command: bash -c "npm i && ./node_modules/.bin/nodemon index.js start --bind-host $$HOSTNAME --rqlite-addr http://rqlite-1:4001 --secret hush123"
+    command: bash -c "npm i && ./node_modules/.bin/nodemon index.js start --bind-host $$HOSTNAME --rqlite-addr http://rqlite-1:4001 --secret hush123 --password-hash-iterations 1"
     restart: always
+    ports:
+      - "8001:8001"
     environment:
       NODE_ENV: development
     volumes:
@@ -36,6 +40,8 @@ services:
     working_dir: /app
     command: bash -c "npm i && ./node_modules/.bin/nodemon index.js start --bind-host $$HOSTNAME --rqlite-addr http://rqlite-1:4001 --secret hush123"
     restart: always
+    ports:
+      - "8002:8002"
     # deploy: 
     #   replicas: 3
     environment:

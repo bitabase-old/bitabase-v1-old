@@ -4,7 +4,7 @@ const test = require('tape');
 const { createUserAndSession } = require('../helpers/session');
 const reset = require('../helpers/reset');
 
-const url = 'http://localhost:8081';
+const url = 'http://localhost:8001';
 
 test('database: create a new database -> no session', async t => {
   t.plan(2);

@@ -4,8 +4,8 @@ const test = require('tape');
 const { createUserAndSession } = require('../../../helpers/session');
 const reset = require('../../../helpers/reset');
 
-const managerUrl = 'http://localhost:8081';
-const gatewayUrl = 'http://localhost:8082';
+const managerUrl = 'http://localhost:8001';
+const gatewayUrl = 'http://localhost:8002';
 
 const createDatabase = (headers, data) =>
   axios(managerUrl + '/v1/databases', {

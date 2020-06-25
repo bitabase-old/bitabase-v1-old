@@ -4,7 +4,7 @@ const test = require('tape');
 const { createUserAndSession } = require('../../helpers/session');
 const reset = require('../../helpers/reset');
 
-const url = 'http://localhost:8081';
+const url = 'http://localhost:8001';
 
 const createDatabase = (headers, data) =>
   axios(url + '/v1/databases', {

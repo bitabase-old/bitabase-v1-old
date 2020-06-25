@@ -3,7 +3,7 @@ const test = require('tape');
 
 const reset = require('../helpers/reset');
 
-const url = 'http://localhost:8081';
+const url = 'http://localhost:8001';
 
 test('user: create a new user with validation errors', async t => {
   t.plan(2);
