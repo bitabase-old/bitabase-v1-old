@@ -3,7 +3,7 @@ version: "3"
 services:
   rqlite-1:
     image: rqlite/rqlite
-    command: -http-addr rqlite-1:4001 -raft-addr rqlite-1:4002 /tmp/rq1
+    command: -http-addr 0.0.0.0:4001 -raft-addr 0.0.0.0:4002 /tmp/rq1
     ports:
       - 4001:4001
 
@@ -14,10 +14,11 @@ services:
   server:
     image: node:12
     working_dir: /app
-    command: bash -c "npm i && ./node_modules/.bin/nodemon index.js start --bind-host $$HOSTNAME --rqlite-addr http://rqlite-1:4001 --database-path /tmp/bitabase-server"
-    restart: always
+    command: bash -c "npm i && ./node_modules/.bin/nodemon index.js start --advertise-host $$HOSTNAME --rqlite-addr http://rqlite-1:4001 --database-path /tmp/bitabase-server"
     ports:
       - "8000:8000"
+    deploy: 
+      replicas: 1
     environment:
       NODE_ENV: development
     volumes:
@@ -26,10 +27,11 @@ services:
   manager:
     image: node:12
     working_dir: /app
-    command: bash -c "npm i && ./node_modules/.bin/nodemon index.js start --bind-host $$HOSTNAME --rqlite-addr http://rqlite-1:4001 --secret hush123 --password-hash-iterations 1"
-    restart: always
+    command: bash -c "npm i && ./node_modules/.bin/nodemon index.js start --advertise-host $$HOSTNAME --rqlite-addr http://rqlite-1:4001 --secret hush123 --password-hash-iterations 1"
     ports:
       - "8001:8001"
+    deploy: 
+      replicas: 1
     environment:
       NODE_ENV: development
     volumes:
@@ -38,12 +40,11 @@ services:
   gateway:
     image: node:12
     working_dir: /app
-    command: bash -c "npm i && ./node_modules/.bin/nodemon index.js start --bind-host $$HOSTNAME --rqlite-addr http://rqlite-1:4001 --secret hush123"
-    restart: always
+    command: bash -c "npm i && ./node_modules/.bin/nodemon index.js start --advertise-host $$HOSTNAME --rqlite-addr http://rqlite-1:4001 --secret hush123"
     ports:
       - "8002:8002"
-    # deploy: 
-    #   replicas: 3
+    deploy: 
+      replicas: 1
     environment:
       NODE_ENV: development
     volumes:

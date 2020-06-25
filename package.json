@@ -12,9 +12,9 @@
   "license": "AGPL-3.0",
   "dependencies": {
     "axios": "^0.19.2",
-    "bitabase-gateway": "^1.5.4",
-    "bitabase-manager": "^2.3.3",
-    "bitabase-server": "^1.15.5",
+    "bitabase-gateway": "^1.5.5",
+    "bitabase-manager": "^2.3.4",
+    "bitabase-server": "^1.15.6",
     "calladownload-extract": "^1.2.0",
     "chalk": "^4.1.0",
     "ip": "^1.1.5",
