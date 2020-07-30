@@ -17,7 +17,7 @@ function start (options) {
       bindHost: options['server-bind-host'],
       bindPort: options['server-bind-port'],
       rqliteAddr: 'http://0.0.0.0:4001',
-      secret: options.secret,
+      secret: String(options.secret),
       databasePath: options['server-storage'] || '/tmp/server-bitabase'
     }).start();
   
@@ -25,14 +25,14 @@ function start (options) {
       bindHost: options['gateway-bind-host'],
       bindPort: options['gateway-bind-port'],
       rqliteAddr: 'http://0.0.0.0:4001',
-      secret: options.secret
+      secret: String(options.secret)
     }).start();
   
     createBitabaseManager({
       bindHost: options['manager-bind-host'],
       bindPort: options['manager-bind-port'],
       rqliteAddr: 'http://0.0.0.0:4001',
-      secret: options.secret
+      secret: String(options.secret)
     });
   });
 }
