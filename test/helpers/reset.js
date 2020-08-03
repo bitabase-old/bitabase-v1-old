@@ -4,7 +4,7 @@ const righto = require('righto');
 
 const url = 'http://localhost:4001';
 
-module.exports = function (callback) {
+module.exports = function () {
   const connection = righto(rqlite.connect, url);
   const cleanedDatabase = righto.all([
     righto(rqlite.execute, connection, 'DELETE FROM database_users'),
