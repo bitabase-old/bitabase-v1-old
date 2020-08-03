@@ -12,9 +12,9 @@
   "license": "AGPL-3.0",
   "dependencies": {
     "axios": "^0.19.2",
-    "bitabase-gateway": "^1.5.7",
+    "bitabase-gateway": "^1.6.1",
     "bitabase-manager": "^2.3.7",
-    "bitabase-server": "^1.15.8",
+    "bitabase-server": "^1.18.1",
     "calladownload-extract": "^1.2.0",
     "chalk": "^4.1.0",
     "ip": "^1.1.5",
@@ -24,7 +24,7 @@
     "tape": "^5.0.1"
   },
   "devDependencies": {
-    "async-bugs": "^1.1.0",
+    "async-bugs": "^1.1.1",
     "final-stream": "^1.1.0",
     "node-pre-gyp": "^0.15.0"
   }

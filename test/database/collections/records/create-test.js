@@ -13,7 +13,7 @@ const createDatabase = (headers, data) =>
     validateStatus: () => true,
     headers,
     data: data || {
-      name: 'testing'
+      name: 'testing001'
     }
   });
 
@@ -23,32 +23,51 @@ const createCollection = (headers, database, data) =>
     validateStatus: () => true,
     headers,
     data: data || {
-      name: 'testing'
+      name: 'testing001',
+      schema: {
+        knownColumn: ['required', 'string']
+      }
     }
   });
 
-test.only('database records: create a new record', async t => {
-  t.plan(2);
+test('database records: create a new record with invalid data', async t => {
+  t.plan(1);
   await reset();
 
   const session = await createUserAndSession();
   const database = await createDatabase(session.asHeaders);
-  const collection = await createCollection(session.asHeaders, database.data);
+  await createCollection(session.asHeaders, database.data);
 
   const insertedRecord = await axios({
     method: 'post',
-    data: { testField: 'testValue' },
-    baseURL: gatewayUrl + '/testing',
+    data: { unknownColumn: 'testValue' },
+    baseURL: gatewayUrl + '/testing001',
     headers: {
-      host: 'testing.bitabase.test'
+      host: 'testing001.bitabase.test'
     },
     validateStatus: () => true
   });
 
-  console.log(database.data)
-  console.log(collection.data)
-  console.log(insertedRecord.data)
-
   t.equal(insertedRecord.status, 422);
-  console.log(insertedRecord.data)
+});
+
+test('database records: create a new record', async t => {
+  t.plan(1);
+  await reset();
+
+  const session = await createUserAndSession();
+  const database = await createDatabase(session.asHeaders);
+  await createCollection(session.asHeaders, database.data);
+
+  const insertedRecord = await axios({
+    method: 'post',
+    data: { knownColumn: 'testValue' },
+    baseURL: gatewayUrl + '/testing001',
+    headers: {
+      host: 'testing001.bitabase.test'
+    },
+    validateStatus: () => true
+  });
+
+  t.equal(insertedRecord.status, 201);
 });
