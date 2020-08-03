@@ -1,4 +1,4 @@
-<img src="https://docs.bitabase.com/img/logo.png" alt="Bitabase Logo" height="50px" />
+<img src="https://docs.bitabase.com/img/logo.png?20200720" alt="Bitabase Logo" height="50px" />
 
 [![Build Status](https://travis-ci.org/bitabase/bitabase.svg?branch=master)](https://travis-ci.org/bitabase/bitabase)
 [![Riot.IM Chat](https://img.shields.io/badge/chat-riot.im-blue)](https://riot.im/app/#/room/#bitabase:matrix.org)
