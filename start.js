@@ -31,6 +31,9 @@ function start (options) {
     createBitabaseManager({
       bindHost: options['manager-bind-host'],
       bindPort: options['manager-bind-port'],
+      allowedCrossOriginDomains: options['manager-allowed-cors']
+        ? (Array.isArray(options['manager-allowed-cors']) ? options['manager-allowed-cors'] : [options['manager-allowed-cors']])
+        : [],
       rqliteAddr: 'http://0.0.0.0:4001',
       secret: String(options.secret)
     });

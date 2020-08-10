@@ -28,6 +28,7 @@ Commands:
 
     --manager-bind-host            Host to bind the manager node on (default: 0.0.0.0)
     --manager-bind-port            Port to bind the manager on (default: 8001)
+    --manager-allowed-cors         Cross domain origin domains that are allowed
     --gateway-bind-host            Host to bind the gateway node on (default: 0.0.0.0)
     --gateway-bind-port            Port to bind the gateway on (default: 8002)
     --server-bind-host             Host to bind the data server node on (default: 0.0.0.0)
