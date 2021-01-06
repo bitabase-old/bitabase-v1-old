@@ -11,7 +11,7 @@
   "author": "",
   "license": "AGPL-3.0",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bitabase-gateway": "^1.6.2",
     "bitabase-manager": "^2.3.8",
     "bitabase-server": "^1.19.0",
